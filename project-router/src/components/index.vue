@@ -39,7 +39,7 @@ export default {
       font-family:"Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3","FontAwesome",sans-serif;
     }
     body{
-      background:#FFFFFF;
+      background:#f1f2f6;
       font-size:12px;
     }
     ul,ol,dl,dd,p,h1,h2,h3,h4,h5,h6,form,div,fieldset,form,textarea,input,body {margin:0;padding:0;}
@@ -85,5 +85,6 @@ export default {
       text-align: center;
       line-height: 60px;
       font-size: 14px;
+      clear: both;
     }
 </style>
