@@ -189,7 +189,7 @@ export default {
         margin-top: 15px;
     }
     .all-product-height{
-        height: 323px;
+        height: 330px;
     }
     .all-product-cont{
       width: 100%;
@@ -233,6 +233,7 @@ export default {
     .index-one-right{
       width: 982px;
       float: right;
+      margin-bottom: 15px;
     }
 
     /* 图片列表内容 */

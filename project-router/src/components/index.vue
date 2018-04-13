@@ -22,14 +22,21 @@
       <div class="com-footer">
         paopao-email:1647340208@qq.com
       </div>
+      <myDilog @click="aboutClick">about</myDilog>
   </div>
 </template>
 
 <script>
-
-
+import myDilog from '@/components/dilog';
 export default {
-
+  components:{
+    myDilog,
+  },
+  methods:{
+    aboutClick(){
+        console.log("sss");
+    }
+  }
 }
 </script>
 

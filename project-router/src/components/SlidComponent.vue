@@ -133,7 +133,6 @@ export default {
   bottom: 0px;
   left: 15px;
   color: #fff;
-  z-index: 2;
   line-height: 40px;
 }
 </style>
