@@ -14,7 +14,7 @@
             </div>
             <h2 class='all-product-title all-product-title-top'>最新消息</h2>
             <div class="all-product-cont">
-                <ul>
+                <ul :class='["all-product-height"]'>
                   <li v-for='(item,index) in newList'>
                       <a :href='item.ulr'>{{item.title}}</a>
                   </li>
@@ -24,7 +24,7 @@
       </div>
       <div class="index-one-right">
         <div class="index-banner">
-
+            <sildBanner :sildeBannerList="sildeBannerList" ></sildBanner>
         </div>
         <div class="index-list-wp">
             <div class="index-list" v-for="(item,index) in newList" :class="{'index-list-last':index % 2 !==0}">
@@ -41,7 +41,13 @@
 </template>
 
 <script>
+
+import sildBanner from '@/components/SlidComponent';
+
 export default {
+  components:{
+    sildBanner,
+  },
   data(){
     return{
       newList:[
@@ -100,7 +106,7 @@ export default {
             },
           ]
         },
-      app:{
+        app:{
         title:'应用类',
         last:true,
         list:[
@@ -123,7 +129,33 @@ export default {
           },
         ]
       }
-      }
+      },
+      sildeBannerList:[
+        {
+          'img':require('../assets/slideShow/pic1.jpg'),
+          'imgUlr':'javaScriprt',
+          'font':'文字标题内容1',
+          'font-url':'javaScript:;',
+        },
+        {
+          'img':require('../assets/slideShow/pic2.jpg'),
+          'imgUlr':'javaScriprt',
+          'font':'文字标题内容2',
+          'font-url':'javaScript:;',
+        },
+        {
+          'img':require('../assets/slideShow/pic3.jpg'),
+          'imgUlr':'javaScriprt',
+          'font':'文字标题内容3',
+          'font-url':'javaScript:;',
+        },
+        {
+          'img':require('../assets/slideShow/pic4.jpg'),
+          'imgUlr':'javaScriprt',
+          'font':'文字标题内容4',
+          'font-url':'javaScript:;',
+        },
+      ]
     }
   },
 }
@@ -155,6 +187,9 @@ export default {
     }
     .all-product-title-top{
         margin-top: 15px;
+    }
+    .all-product-height{
+        height: 323px;
     }
     .all-product-cont{
       width: 100%;
@@ -199,23 +234,18 @@ export default {
       width: 982px;
       float: right;
     }
-    /* banner轮播图 */
-    .index-banner{
-      width: 100%;
-      height: 452px;
-      background: red;
-    }
+
     /* 图片列表内容 */
     .index-list-wp{
       width: 100%;
       height: auto;
-      margin-top: 15px;
     }
     .index-list{
       width: 483px;
       height: 140px;
       background: #fff;
       float: left;
+      margin-top: 15px;
     }
     .index-list-last{
       margin-left: 15px;

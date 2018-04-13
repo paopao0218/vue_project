@@ -15,9 +15,9 @@
         </div>
       </div>
       <div class="main">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </div>
       <div class="com-footer">
         paopao-email:1647340208@qq.com
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+
+
 export default {
 
 }
@@ -77,6 +79,7 @@ export default {
       margin-left: 10px;
       cursor: pointer;
     }
+
     .com-footer{
       width: 100%;
       height: 60px;
