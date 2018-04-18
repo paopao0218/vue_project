@@ -76,6 +76,7 @@ export default {
 .selectListWarp{
   position: relative;
   top: -6px;
+
 }
 .selectList{
   position: absolute;
@@ -86,6 +87,7 @@ export default {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   border-top: none;
+  background: #fff;
 }
 .selectList li{
   text-align: center;
@@ -95,6 +97,7 @@ export default {
 }
 .selectList li:first-child{
   margin-top: 6px;
+  border-top: 1px solid #ccc;
 }
 .selectList li:last-child{
   border-bottom: none;
