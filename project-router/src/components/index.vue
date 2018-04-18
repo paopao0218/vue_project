@@ -6,11 +6,14 @@
               <img src="../assets/logo.png" alt="">
           </div>
           <ul class="list">
-            <li>登录</li>
-            <li>丨</li>
-            <li>注册</li>
-            <li>丨</li>
-            <li>关于</li>
+            <li v-if='name==""' @click='loginClick'>登录</li>
+            <li v-if='name==""'>丨</li>
+            <li v-if='name==""' @click='regClick'>注册</li>
+            <li v-if='name==""'>丨</li>
+            <li @click='aboutClick'>关于</li>
+            <li v-if='name==!""'>丨</li>
+            <li>{{name}}</li>
+            <li v-if='name==!""'>丨</li>
           </ul>
         </div>
       </div>
@@ -22,19 +25,55 @@
       <div class="com-footer">
         paopao-email:1647340208@qq.com
       </div>
-      <myDilog @click="aboutClick">about</myDilog>
+      <myDilog :is-show='isLoginShow' @close-mask='closeT("isLoginShow")'>
+        <Login @has-log='onSuccessLog'></Login>
+      </myDilog>
+      <myDilog :is-show='isRegShow' @close-mask='closeT("isRegShow")'>2</myDilog>
+      <myDilog :is-show='isAboutShow' @close-mask='closeT("isAboutShow")'>
+        <p class="ablutWe">
+          学习，是指通过阅读、听讲、思考、研究、实践等途径获得知识或技能的过程。学习分为狭义与广义两种：
+狭义：通过阅读、听讲、研究、观察、理解、探索、实验、实践等手段获得知识或技能的过程，是一种使个体可以得到持续变化（知识和技能，方法与过程，情感与价值的改善和升华）的行为方式。例如通过学校教育获得知识的过程。
+广义：是人在生活过程中，通过获得经验而产生的行为或行为潜能的相对持久的行为方式。
+        </p>
+      </myDilog>
   </div>
 </template>
 
 <script>
 import myDilog from '@/components/dilog';
+import Login from '@/components/login';
 export default {
   components:{
     myDilog,
+    Login,
+  },
+  data(){
+    return{
+      isLoginShow:false,
+      isRegShow:false,
+      isAboutShow:false,
+      name:''
+    }
   },
   methods:{
+    loginClick(){
+      this.isLoginShow=true;
+    },
+    regClick(){
+      this.isRegShow=true;
+    },
     aboutClick(){
-        console.log("sss");
+      this.isAboutShow=true;
+    },
+    closeT(attr){
+      this[attr]=false;
+    },
+    onSuccessLog(data){
+      var data=data.data
+      if(data){
+        this.name=data.login.username;
+        this.closeT('isLoginShow');
+      }
     }
   }
 }
@@ -86,7 +125,13 @@ export default {
       margin-left: 10px;
       cursor: pointer;
     }
-
+    .ablutWe{
+      padding: 10px;
+      font-size: 14px;
+      color: #333;
+      text-indent: 2rem;
+      line-height: 25px;
+    }
     .com-footer{
       width: 100%;
       height: 60px;

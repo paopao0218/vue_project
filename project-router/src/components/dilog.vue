@@ -1,14 +1,14 @@
 <template lang="html">
-  <div class="">
-    <div class="dilog-wp">
-      <div class="dilog-cover"></div>
+  <div>
+    <div class="dilog-wp" v-if='isShow'>
+      <div class="dilog-cover" @click='closeCover'></div>
       <div class="dilog-cont">
           <div class="dilog-title">
-            <h3>title</h3>
-            <span>X</span>
+            <h3>vue学习</h3>
+            <span @click='closeCover'>X</span>
           </div>
           <div class="dilog-font">
-            <slot>empty</slot>
+              <slot></slot>
           </div>
       </div>
     </div>
@@ -17,7 +17,17 @@
 
 <script>
 export default {
-
+  props:{
+    isShow:{
+      type:Boolean,
+      default:false,
+    }
+  },
+  methods:{
+    closeCover(){
+      this.$emit('close-mask');
+    },
+  }
 }
 </script>
 
@@ -44,8 +54,11 @@ export default {
   left: 50%;
   margin-left: -25%;
   top:20%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 .dilog-title{
   width: 100%;
@@ -54,6 +67,7 @@ export default {
   border-bottom: 1px solid #ccc;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  position: relative;
 }
 .dilog-title h3{
   text-align: center;
@@ -73,7 +87,7 @@ export default {
   text-align: center;
   line-height: 20px;
   color: #fff;
-  top: 50%;
+  top: 75%;
   margin-top: -18px;
   cursor: pointer;
 }
