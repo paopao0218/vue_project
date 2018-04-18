@@ -8,7 +8,7 @@
         <!-- <li v-for="(value,key) in product.pc.list" @click='detaileLeftListClick'>
             {{value.name}}
         </li> -->
-        <router-link :to="{ path: value.path }" tag='li' v-for="(value,key) in product.pc.list" @click='detaileLeftListClick'>{{value.name}}</router-link>
+        <router-link :to="{ path: value.path }" tag='li' v-for="(value,key) in product.pc.list">{{value.name}}</router-link>
       </ul>
     </div>
     <div class="details-right">
@@ -37,6 +37,7 @@ export default {
             {
               name:'开发产品',
               path: 'countPage',
+              hot:true
             },
             {
               name:'品牌直销',
@@ -48,11 +49,13 @@ export default {
               name:'使命必达',
               path: 'analysisPage',
               url:'javaScript:;',
+              hot:true
             },
             {
               name:'勇攀高峰',
               path: 'publishPage',
-              url:'javaScript:;'
+              url:'javaScript:;',
+              hot:true
             },
           ]
         },
@@ -61,7 +64,7 @@ export default {
   },
   methods:{
     detaileLeftListClick(){
-      // console.log(jQuery(this))
+      console.log("aaa")
     }
   },
   computed:{
@@ -104,12 +107,13 @@ export default {
     padding-left: 18px;
     cursor: pointer;
   }
-  .detailes-cont li.addbackground{
+  .detailes-cont li.router-link-exact-active{
     background: #4ec18f;
     color:#fff;
   }
   .details-right{
-    width: 804px;
+    width: 1022px;;
     float: right;
   }
+  
 </style>
