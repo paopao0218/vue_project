@@ -3,7 +3,9 @@
       <div class="com-header">
         <div class="com-header-width">
           <div class="logo">
-              <img src="../assets/logo.png" alt="">
+              <router-link :to="{ path: '/' }">
+                  <img src="../assets/logo.png" alt="">
+              </router-link>
           </div>
           <ul class="list">
             <li v-if='name==""' @click='loginClick'>登录</li>

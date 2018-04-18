@@ -32,7 +32,9 @@
               <div class="index-list-font">
                 <h4>{{item.title}}</h4>
                 <p>{{item.cont}}</p>
-                <a href="javaScript:;">{{item.acont}}</a>
+                <router-link :to="{ path: item.ulr }">
+                    <a>{{item.acont}}</a>
+                </router-link>
               </div>
             </div>
         </div>
@@ -55,31 +57,28 @@ export default {
           title:'开发产品',
           cont:'开放产品是一款开放产品，是我们快速的进去开发模式，更高，更快有效的提高我们的开发效率',
           acont:'立即购买',
-          ulr:'javaScript:;',
+          ulr:'DetailsPage/countPage',
           id:'erath',
         },
         {
           title:'品牌营销',
           cont:'品牌营销帮助你的产品更好的找到定位',
-          ulr:'javaScript:;',
+          ulr:'DetailsPage/forecostPage',
           acont:'立即购买',
-          ulr:'javaScript:;',
           id:'car',
         },
         {
           title:'使命必达',
           cont:'使命必达快速迭代永远保持最前端的速度 ',
-          ulr:'javaScript:;',
+          ulr:'DetailsPage/analysisPage',
           acont:'立即购买',
-          ulr:'javaScript:;',
           id:'speaker',
         },
         {
           title:'勇攀高峰',
           cont:'帮你勇闯高峰，到达事业的顶峰',
-          ulr:'javaScript:;',
+          ulr:'DetailsPage/publishPage',
           acont:'立即购买',
-          ulr:'javaScript:;',
           id:'hill',
         }
       ],
