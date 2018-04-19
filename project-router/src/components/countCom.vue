@@ -31,6 +31,11 @@ export default {
       bayNumbder:this.min
     }
   },
+  watch:{
+    bayNumbder(){
+      this.$emit('on-change', this.bayNumbder)
+    }
+  },
   methods:{
     lessClick(){
       if(this.bayNumbder<=this.min){

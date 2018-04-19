@@ -36,7 +36,7 @@ export default {
     listClick(item){
       this.togger=false;
       this.newIndex=item;
-      this.$emit('value-parent',this.item)
+      this.$emit('on-change',this.selectLists[item])
     }
   }
 }

@@ -36,7 +36,7 @@ export default {
       }
       let nowObjArray=_.map(this.currentIndex,(idx)=>{ return this.checkoutList[idx]} )
       //this.currentIndex=index;
-      this.$emit('checkoutChange',nowObjArray);
+      this.$emit('on-change',nowObjArray);
     },
 
     checkActive (index) {

@@ -10,30 +10,30 @@
       <div class="details-right-number">
         <div class="details-right-number-left">购买数量：</div>
         <div class="details-right-number-right">
-          <CountCom :max="max" :countNumber="countNumber" :min="min"></CountCom>
+          <CountCom :max="max" :countNumber="countNumber" :min="min" @on-change="onParamChange('buyNumber',$event)"></CountCom>
         </div>
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">产品类型：</div>
         <div class="details-right-number-right">
-            <SelectCom :selectLists="selectLists" @value-parent='selectVlaue'></SelectCom>
+            <SelectCom :selectLists="selectLists" @on-change="onParamChange('buyType',$event)"></SelectCom>
         </div>
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">有效时间：</div>
         <div class="details-right-number-right">
-           <RadioCom :radios='radios'></RadioCom>
+           <RadioCom :radios='radios' @on-change="onParamChange('buyTime',$event)"></RadioCom>
         </div>
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">产品版本：</div>
         <div class="details-right-number-right">
-          <CheckoutCom :checkoutList='checkoutList'></CheckoutCom>
+          <CheckoutCom :checkoutList='checkoutList' @on-change="onParamChange('buyVersions',$event)"></CheckoutCom>
         </div>
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">总价：</div>
-        <div class="details-right-number-right"><b>10</b>元</div>
+        <div class="details-right-number-right"><b>{{totlePrice}}</b>元</div>
       </div>
       <div class="details-right-totle-btn">
         <button type="button" name="button">立即购买</button>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import SelectCom from '@/components/selectComponent';
 import CheckoutCom from '@/components/checkout';
 import RadioCom from '@/components/radio';
@@ -64,6 +65,11 @@ export default {
   },
   data(){
     return{
+      buyNumber:'',
+      buyType:'',
+      buyTime:'',
+      buyVersions:[],
+      totlePrice:0,
       selectLists:[
         {
           'label':'入门版',
@@ -89,11 +95,11 @@ export default {
         },
         {
           'label':'代理商版',
-          'value':'0',
+          'value':'1',
         },
         {
           'label':'专家版',
-          'value':'0',
+          'value':'2',
         }
       ],
       radios:[
@@ -120,10 +126,38 @@ export default {
     }
   },
   methods:{
-    selectVlaue(){
-
+    onParamChange(attr,val){
+      this[attr]=val;
+      this.getPirce();
+    },
+    getPirce(){
+      let buyVersionsArray=_.map(this.buyVersions,(item,index)=>{
+          return item.value;
+      })
+      let passParams={
+        buyNumber:this.buyNumber,
+        buyType:this.buyType.value,
+        buyTime:this.buyTime.value,
+        buyVersions:buyVersionsArray.join(','),
+      }
+      this.$http.get('../../../static/db.json',passParams)
+      .then((data)=>{
+          let datas=data.bodyText,
+              res=JSON.parse(datas);
+              this.totlePrice=res.getPrice.amount;
+      },(error)=>{
+        console.log(error+'错误信息')
+      })
     }
-  }
+  },
+  mounted(){
+      //组件渲染完成
+      this.buyNumber=0;
+      this.buyType=this.selectLists[0];
+      this.buyTime=this.radios[0];
+      this.buyVersions=[this.checkoutList[0]];
+      this.totlePrice=0;
+  },
 }
 </script>
 

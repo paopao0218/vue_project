@@ -25,7 +25,7 @@ export default {
   methods:{
     radioClick(index){
       this.curIndex=index;
-      this.$emit('radio-c',index);
+      this.$emit('on-change',this.radios[index]);
     }
   }
 }
