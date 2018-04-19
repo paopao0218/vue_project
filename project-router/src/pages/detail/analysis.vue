@@ -9,7 +9,9 @@
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">购买数量：</div>
-        <div class="details-right-number-right"></div>
+        <div class="details-right-number-right">
+          <CountCom :max="max" :countNumber="countNumber" :min="min"></CountCom>
+        </div>
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">产品类型：</div>
@@ -19,7 +21,9 @@
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">有效时间：</div>
-        <div class="details-right-number-right"></div>
+        <div class="details-right-number-right">
+           <RadioCom :radios='radios'></RadioCom>
+        </div>
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">产品版本：</div>
@@ -29,7 +33,10 @@
       </div>
       <div class="details-right-number">
         <div class="details-right-number-left">总价：</div>
-        <div class="details-right-number-right"></div>
+        <div class="details-right-number-right"><b>10</b>元</div>
+      </div>
+      <div class="details-right-totle-btn">
+        <button type="button" name="button">立即购买</button>
       </div>
       <div class="">
         <div class="details-right-title">
@@ -46,10 +53,14 @@
 <script>
 import SelectCom from '@/components/selectComponent';
 import CheckoutCom from '@/components/checkout';
+import RadioCom from '@/components/radio';
+import CountCom from '@/components/countCom';
 export default {
   components:{
     SelectCom,
     CheckoutCom,
+    RadioCom,
+    CountCom,
   },
   data(){
     return{
@@ -84,7 +95,28 @@ export default {
           'label':'专家版',
           'value':'0',
         }
-      ]
+      ],
+      radios:[
+        {
+          'label':'一年',
+          'value':'0',
+        },
+        {
+          'label':'三年',
+          'value':'1',
+        },
+        {
+          'label':'五年',
+          'value':'2',
+        },
+        {
+          'label':'七年',
+          'value':'3',
+        }
+      ],
+      max:10,
+      min:4,
+      countNumber:4,
     }
   },
   methods:{
@@ -129,5 +161,19 @@ export default {
 .details-right-number-right{
   float: left;
   width: 400px;
+}
+.details-right-totle-btn{
+    margin-left: 100px;
+}
+.details-right-totle-btn button{
+  display: block;
+  width: 150px;
+  height: 35px;
+  border-radius: 8px;
+  border: none;
+  background: #50c08f;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
 }
 </style>
