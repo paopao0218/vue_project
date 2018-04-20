@@ -36,6 +36,7 @@ export default {
     listClick(item){
       this.togger=false;
       this.newIndex=item;
+      // console.log(this.selectLists[item])
       this.$emit('on-change',this.selectLists[item])
     }
   }

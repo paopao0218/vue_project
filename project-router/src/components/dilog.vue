@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <div class="dilog-wp" v-if='isShow'>
-      <div class="dilog-cover" @click='closeCover'></div>
+      <div class="dilog-cover" @click='closeCover' ></div>
       <div class="dilog-cont">
           <div class="dilog-title">
             <h3>vue学习</h3>

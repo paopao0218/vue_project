@@ -8,6 +8,12 @@
         </p>
       </div>
       <div class="details-right-number">
+        <div class="details-right-number-left">有效时间：</div>
+        <div class="details-right-number-right">
+           <RadioCom :radios='radios' @on-change="onParamChange('buyTime',$event)"></RadioCom>
+        </div>
+      </div>
+      <div class="details-right-number">
         <div class="details-right-number-left">购买数量：</div>
         <div class="details-right-number-right">
           <CountCom :max="max" :countNumber="countNumber" :min="min" @on-change="onParamChange('buyNumber',$event)"></CountCom>
@@ -17,12 +23,6 @@
         <div class="details-right-number-left">产品类型：</div>
         <div class="details-right-number-right">
             <SelectCom :selectLists="selectLists" @on-change="onParamChange('buyType',$event)"></SelectCom>
-        </div>
-      </div>
-      <div class="details-right-number">
-        <div class="details-right-number-left">有效时间：</div>
-        <div class="details-right-number-right">
-           <RadioCom :radios='radios' @on-change="onParamChange('buyTime',$event)"></RadioCom>
         </div>
       </div>
       <div class="details-right-number">
@@ -36,7 +36,7 @@
         <div class="details-right-number-right"><b>{{totlePrice}}</b>元</div>
       </div>
       <div class="details-right-totle-btn">
-        <button type="button" name="button">立即购买</button>
+        <button type="button" name="button" @click='myDilogOpen'>立即购买</button>
       </div>
       <div class="">
         <div class="details-right-title">
@@ -47,6 +47,30 @@
           </p>
         </div>
       </div>
+      <MyDilog :isShow='isShow' @close-mask="myDilogClose">
+          <table class="my-table">
+            <tr class="my-table-header">
+              <td>购买数量</td>
+              <td>产品类型</td>
+              <td>产品版本</td>
+              <td>有效时间</td>
+              <td>总价格</td>
+            </tr>
+            <tr>
+              <td>{{buyNumber}}</td>
+              <td>{{buyType.label}}</td>
+              <td>
+                <span v-for="(item,index) in buyVersions">{{item.label}}</span>
+              </td>
+              <td>{{buyTime.label}}</td>
+              <td>{{totlePrice}}</td>
+            </tr>
+          </table>
+          <h3 class="chooseBank">选择银行卡：</h3>
+          <BackCom @on-change="bankParams"></BackCom>
+          <button type="button" name="button" class='payBtn' @click='payMonyClick'>立即支付</button>
+      </MyDilog>
+      <CheckRoderCom :checkOrder='checkOrder' :orderId='orderId' @on-close-check-dialog="closeCheckRorder"></CheckRoderCom>
   </div>
 </template>
 
@@ -56,12 +80,19 @@ import SelectCom from '@/components/selectComponent';
 import CheckoutCom from '@/components/checkout';
 import RadioCom from '@/components/radio';
 import CountCom from '@/components/countCom';
+import MyDilog from '@/components/dilog';
+import BackCom from '@/components/backCom';
+import CheckRoderCom from '@/components/checkOrder';
+
 export default {
   components:{
     SelectCom,
     CheckoutCom,
     RadioCom,
     CountCom,
+    MyDilog,
+    BackCom,
+    CheckRoderCom,
   },
   data(){
     return{
@@ -69,7 +100,11 @@ export default {
       buyType:'',
       buyTime:'',
       buyVersions:[],
-      totlePrice:0,
+      totlePrice:640,
+      isShow:false,
+      bankId:null,
+      orderId:'',
+      checkOrder:false,
       selectLists:[
         {
           'label':'入门版',
@@ -121,7 +156,7 @@ export default {
         }
       ],
       max:10,
-      min:4,
+      min:1,
       countNumber:4,
     }
   },
@@ -148,15 +183,52 @@ export default {
       },(error)=>{
         console.log(error+'错误信息')
       })
+    },
+    myDilogOpen(){
+      //
+      this.isShow=true;
+    },
+    myDilogClose(){
+      this.isShow=false;
+    },
+    bankParams(bankObj){
+      this.bankId=bankObj;
+    },
+    payMonyClick(){
+      let buyVersionsArray=_.map(this.buyVersions,(item,index)=>{
+          return item.value;
+      })
+      let passParams={
+        buyNumber:this.buyNumber,
+        buyType:this.buyType.value,
+        buyTime:this.buyTime.value,
+        buyVersions:buyVersionsArray.join(','),
+        bankId:this.bankId,
+      }
+      this.$http.get('../../../static/db.json',passParams)
+      .then((data)=>{
+          let datas=data.bodyText,
+              res=JSON.parse(datas);
+              this.orderId=res.createOrder.orderId;
+              this.isShow=false;
+              this.checkOrder=true;
+      },(error)=>{
+        console.log(error+'错误信息')
+      })
+    },
+    closeCheckRorder(){
+      this.checkOrder=false;
     }
   },
   mounted(){
       //组件渲染完成
-      this.buyNumber=0;
-      this.buyType=this.selectLists[0];
-      this.buyTime=this.radios[0];
-      this.buyVersions=[this.checkoutList[0]];
-      this.totlePrice=0;
+    this.buyNumber = 1;
+    this.buyTime=this.radios[0];
+    this.buyType = this.selectLists[0]
+    this.buyVersions = [this.checkoutList[0]]
+    this.totlePrice = this.totlePrice;
+    this.bankId=201;
+    this.getPirce()
   },
 }
 </script>
@@ -209,5 +281,51 @@ export default {
   color: #fff;
   outline: none;
   cursor: pointer;
+}
+.details-right-totle-btn button:hover{
+  background: green;
+}
+.my-table{
+  width: 98%;
+  height: 100%;
+  text-align: center;
+  border-radius: 8px;
+  border-top: none;
+   border-collapse:collapse;
+   margin: 10px auto;
+}
+.my-table tr{
+  height: 30px;
+  line-height: 30px;
+}
+.my-table tr td{
+    border:1px solid #ccc;
+}
+.my-table tr td span{
+  margin-right: 6px;;
+}
+.my-table-header{
+  font-size: 14px;
+}
+.chooseBank{
+  margin-left: 8px;
+  line-height: 35px;
+  font-weight: bold;
+  color: #333;
+}
+.payBtn{
+  display: block;
+  width: 150px;
+  height: 35px;
+  border-radius: 8px;
+  border: none;
+  background: #50c08f;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  margin: 18px auto;
+}
+.payBtn:hover{
+  background: green;
 }
 </style>
