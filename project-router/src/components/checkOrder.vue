@@ -7,7 +7,9 @@
         <button type="button" name="button" class="pay-status" @click="ErrorClick">取消支付</button>
       </div>
     </MyDilog>
-    <MyDilog :is-show="isSuccess" @close-mask="checkOrderClose">购买成功！</MyDilog>
+    <MyDilog :is-show="isSuccess" @close-mask="checkOrderClose">
+      <p>购买成功！</p>
+    </MyDilog>
     <MyDilog :is-show="isError" @close-mask="checkOrderClose">购买失败！</MyDilog>
   </div>
 </template>

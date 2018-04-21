@@ -14,7 +14,10 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.5",
     "mockjs": "^1.0.1-beta3",
+    "un": "0.0.0",
+    "v2-datepicker": "^3.0.2",
     "vue": "^2.5.2",
+    "vue-flatpickr-component": "^7.0.1",
     "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1"
   },
