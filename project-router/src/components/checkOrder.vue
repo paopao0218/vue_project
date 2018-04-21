@@ -8,7 +8,7 @@
       </div>
     </MyDilog>
     <MyDilog :is-show="isSuccess" @close-mask="checkOrderCloseA">
-      <p>购买成功！</p>
+      <p>购买成功了！</p>
     </MyDilog>
     <MyDilog :is-show="isError" @close-mask="checkOrderClose">购买失败！</MyDilog>
   </div>
