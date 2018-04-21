@@ -7,7 +7,7 @@
         <button type="button" name="button" class="pay-status" @click="ErrorClick">取消支付</button>
       </div>
     </MyDilog>
-    <MyDilog :is-show="isSuccess" @close-mask="checkOrderClose">
+    <MyDilog :is-show="isSuccess" @close-mask="checkOrderCloseA">
       <p>购买成功！</p>
     </MyDilog>
     <MyDilog :is-show="isError" @close-mask="checkOrderClose">购买失败！</MyDilog>
@@ -44,6 +44,12 @@ export default {
       this.isError=false;
       this.isSuccess=false;
       this.$emit('on-close-check-dialog');
+    },
+    checkOrderCloseA(){
+      this.isError=false;
+      this.isSuccess=false;
+      this.$emit('on-close-check-dialog');
+      this.$router.push({path:'/orderListPage'})
     }
   }
 }
